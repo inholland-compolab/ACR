@@ -1,2 +1,0 @@
-
--DCATKIN_DEVEL_PREFIX=/home/zohar/Documents/Work/ACR/devel -DCMAKE_INSTALL_PREFIX=/home/zohar/Documents/Work/ACR/install -G Unix Makefiles

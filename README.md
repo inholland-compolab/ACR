@@ -7,11 +7,16 @@
 ## Current Goals
 
 - [ ] Replacing the Arduino by a Controllino
-- [ ] Adding a distance sensor
 - [ ] On-board raspberry pi for wireless control
-- [ ] Implementing SLAM for autonomous navigating
+- [ ] Implementing SLAM for autonomous navigation [RUNNING] 
 
-## Dependecies list
+## SLAM for autonomous navigation
+> This is the current plan of attack, changes will be made along the way. This is a WIP
 
-> TODO
+# Odometry
+1. [ ] Use tf2 to locate ACR in wordspace
+2. [ ] Implement odometry, and send metric commands
+
+# Mapping
+3. [ ] Use lidar to map the environment
 
