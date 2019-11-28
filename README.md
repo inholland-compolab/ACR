@@ -2,7 +2,10 @@
 
 ## Description
 
-> TODO
+The ACR is a robot designed to detect and repair damage on wind turbine wings.
+Using an arduino and the ROS middleware, the robot can currently:
+- Drive around; controlled by keyboard input via a usb connection
+- Stick to surfaces using an external vacuum pump
 
 ## Current Goals
 
