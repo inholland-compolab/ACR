@@ -1,2 +1,4 @@
 # Build files
 rossystem/build
+rossystem/devel
+rossystem/.catkin_workspace
