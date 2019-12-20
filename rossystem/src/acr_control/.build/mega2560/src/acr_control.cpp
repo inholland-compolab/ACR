@@ -1,18 +1,25 @@
+#include <Arduino.h>
+#include <stdlib.h>
+#include <ros.h>
+#include <geometry_msgs/Twist.h>
+void setup();
+void loop();
+void front();
+void back();
+void left();
+void right();
+void turnleft();
+void turnright();
+void die();
+void take_step(int nSteps);
+#line 1 "src/acr_control.ino"
 //Controlling arduino motors using ROS Twist keyboard
 //rosrun rosserial_python serial_node.py /dev/ttyUSB0
 //rosrun teleop_twist_keyboard teleop_twist_keyboard.py
 
-#if defined(ARDUINO) && ARDUINO >= 100
-#include "Arduino.h"
-#else
-#include <Program.h>
-#endif
-#include <stdlib.h>
-#include <ros.h>
-#include <geometry_msgs/Twist.h>
-#include <std_msgs/String.h>
-#include <ros/time.h>
-#include <std_msgs/String.h>
+//#include <stdlib.h>
+//#include <ros.h>
+//#include <geometry_msgs/Twist.h>
 
 #define USE_USBCON
 
@@ -26,7 +33,6 @@ float move2;
 const int nSteppers = 4;
 int nSteps = 5000;
 
-std_msgs::String str_msg;
 char high[13] = "HIGH";
 char low[13] = "LOW";
 
