@@ -2,8 +2,6 @@
 #include <tf/transform_broadcaster.h>
 #include <geometry_msgs/Twist.h>
 
-std::string reference_name;
-
 void twistCallback(const geometry_msgs::Twist& msg) {
 	static tf::TransformBroadcaster br;
 	tf::Transform transform;
@@ -14,19 +12,13 @@ void twistCallback(const geometry_msgs::Twist& msg) {
 	transform.setRotation(q);
 	
 	br.sendTransform(
-		tf::StampedTransform(transform, ros::Time::now(), "base_link", reference_name)
+		tf::StampedTransform(transform, ros::Time::now(), "base_link", "odom")
 	);
 }
 
 int main(int argc, char** argv) {
 	ros::init(argc, argv, "my_tf_broadcaster");
   
-	if (argc != 2) {
-	      ROS_ERROR("need reference name");
-	      return -1;
-	}
-	reference_name = argv[1];
-	
 	ros::NodeHandle node;
 	ros::Subscriber sub = node.subscribe("/cmd_vel", 10, &twistCallback);
 	
