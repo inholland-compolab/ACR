@@ -120,14 +120,14 @@ if __name__ == '__main__':
             laserscan.header.stamp = stamp
             laserscan.header.frame_id = frame_id
 
-            laserscan.angle_min = -specs.h_fov/2
-            laserscan.angle_max = -specs.h_fov/2
-            laserscan.angle_increment = specs.h_fov/specs.h
+            laserscan.angle_min = -specs.h_fov/(360) * math.pi
+            laserscan.angle_max = -laserscan.angle_min
+            laserscan.angle_increment = np.deg2rad(specs.h_fov/specs.h)
            
             # TODO: delta time in seconds, used for interpolation when moving
             # Difference between these two?
             laserscan.time_increment = 1
-            laserscan.scan_time = 1 
+            laserscan.scan_time = 0.1
            
             laserscan.range_min = 0.05
             laserscan.range_max = 30

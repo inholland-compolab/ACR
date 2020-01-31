@@ -75,14 +75,14 @@ Visualization Manager:
       Size (Pixels): 3
       Size (m): 0.00999999978
       Style: Points
-      Topic: /ACR/scan_cloud
+      Topic: /LeddarTech_1/scan_cloud
       Unreliable: false
       Use Fixed Frame: true
       Use rainbow: true
       Value: false
     - Class: rviz/Marker
       Enabled: false
-      Marker Topic: /ACR/scan_triangles
+      Marker Topic: /LeddarTech_1/scan_triangles
       Name: Marker
       Namespaces:
         "": true
