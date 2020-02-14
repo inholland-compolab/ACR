@@ -3,27 +3,40 @@
 #include <geometry_msgs/Quaternion.h>
 #include <nav_msgs/Odometry.h>
 #include <tf/transform_broadcaster.h>
+#include "acr_odometry_node.hpp"
 
-tf::TransformBroadcaster odom_broadcaster;
-ros::Subscriber twist_sub;
-ros::Publisher odom_publisher;
 
-void publishOdometry(const geometry_msgs::Twist& msg) {
-	double x = 0.0;
-	double y = 0.0;
-	double th = 0.0;
-	
-	double vx = 0.1;
-	double vy = -0.1;
-	double vth = 0.1;
+OdometryNode::OdometryNode():
+	odom_publisher_(nh_.advertise<nav_msgs::Odometry>("odometry", 100)),
+	twist_sub_(nh_.subscribe("cmd_vel", 100, &OdometryNode::twistCallback, this)) 
+{
+	this->x = 0.0;
+	this->y = 0.0;
+	this->th = 0.0;
+
+	ros::spin();
+}
+
+void OdometryNode::twistCallback(const geometry_msgs::Twist& msg) 
+{
+	ROS_INFO("I heard: [%f]", msg.linear.x);
+	publishOdometry(msg);
+}
+
+void OdometryNode::publishOdometry(const geometry_msgs::Twist& msg)
+{
+	double vx = msg.linear.x;
+	double vy = msg.linear.y;
+	double vth = msg.angular.z;
 	
 	ros::Time current_time, last_time;
 	current_time = ros::Time::now();
 	last_time = ros::Time::now();
 	
-	ros::Rate r(1.0);
+	ros::Rate r(10);
 	
-	while(true){
+	while(ros::ok())
+	{
 		current_time = ros::Time::now();
 		
 		//compute odometry in a typical way given the velocities of the robot
@@ -45,13 +58,13 @@ void publishOdometry(const geometry_msgs::Twist& msg) {
 		odom_trans.header.frame_id = "odom";
 		odom_trans.child_frame_id = "base_link";
 		
-		odom_trans.transform.translation.x = msg.linear.x;
+		odom_trans.transform.translation.x = x;
 		odom_trans.transform.translation.y = y;
 		odom_trans.transform.translation.z = 0.0;
 		odom_trans.transform.rotation = odom_quat;
 		
 		//send the transform
-		odom_broadcaster.sendTransform(odom_trans);
+		odom_broadcaster_.sendTransform(odom_trans);
 		
 		//next, we'll publish the odometry message over ROS
 		nav_msgs::Odometry odom;
@@ -71,26 +84,19 @@ void publishOdometry(const geometry_msgs::Twist& msg) {
 		odom.twist.twist.angular.z = vth;
 		
 		//publish the message
-		odom_publisher.publish(odom);
+		odom_publisher_.publish(odom);
 	
 		last_time = current_time;
 		ros::spinOnce();
 		r.sleep();
 	}
 }
-void twistCallback(const geometry_msgs::Twist& msg) {
-	ROS_INFO("I heard: [%f]", msg.linear.x);
-	publishOdometry(msg);
-}
 
-int main(int argc, char * argv[]) {
-	ros::init(argc, argv, "odometry_node");
-	ros::NodeHandle n;
 
-	// Set up
-	twist_sub = n.subscribe("cmd_vel", 100, twistCallback);
-	odom_publisher = n.advertise<nav_msgs::Odometry>("odometry", 100);
 
-	ros::spin();
+int main(int argc, char * argv[]) 
+{
+	ros::init(argc, argv, "odometry_publisher");
+	OdometryNode node;	
 }
 
