@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<robot name="ACR">
+  
+  <link name="base_link">
+    <visual>
+      <geometry>
+        <box size="1 .7 .2"/>
+      </geometry>
+    </visual>
+  </link>
+
+    <link name="lidar_link">
+      <visual>
+        <geometry>
+          <box size=".1 .1 .1"/>
+        </geometry>
+      </visual>
+    </link>
+
+   <joint name="my_joint" type="fixed">
+	   <origin xyz=".45 0 .15"/>
+    <parent link="base_link"/>
+    <child link="lidar_link"/>
+  </joint>
+
+</robot>

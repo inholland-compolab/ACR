@@ -5,7 +5,6 @@
 #include <tf/transform_broadcaster.h>
 #include "acr_odometry_node.hpp"
 
-
 OdometryNode::OdometryNode():
 	odom_publisher_(nh_.advertise<nav_msgs::Odometry>("odometry", 100)),
 	twist_sub_(nh_.subscribe("cmd_vel", 100, &OdometryNode::twistCallback, this)) 
