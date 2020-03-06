@@ -4,7 +4,7 @@
 #include <nav_msgs/Odometry.h>
 #include <tf/transform_broadcaster.h>
 #include "acr_odometry_node.hpp"
-
+#include <robot_state_publisher/robot_state_publisher.h>
 
 OdometryNode::OdometryNode():
 	odom_publisher_(nh_.advertise<nav_msgs::Odometry>("odometry", 100)),
