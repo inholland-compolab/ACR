@@ -1,5 +1,8 @@
-//Controlling arduino motors using ROS Twist keyboard rosrun rosserial_python serial_node.py /dev/ttyUSB0
-//rosrun teleop_twist_keyboard teleop_twist_keyboard.py
+// Controlling arduino motors using ROS Twist keyboard 
+// Run each of the following commands in a new command line
+//
+// rosrun teleop_twist_keyboard teleop_twist_keyboard.py
+// rosrun rosserial_python serial_node.py </dev/ttyUSB[0-9] or /dev/ttyACM[0-9]>
 
 #include <stdlib.h>
 #include <ros.h>
