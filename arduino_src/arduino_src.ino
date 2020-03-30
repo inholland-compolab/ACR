@@ -6,7 +6,7 @@
 
 #include <stdlib.h>
 #include <ros.h>
-#include <geometry_msgs/Twist.h>
+#include <geometry_msgs/Twist.h> 
 
 #define N_MOTORS 4
 
@@ -19,7 +19,6 @@ float move2;
 const int ena[] = {46, 47, 44, 45};
 const int otherEnable[] = {4, 5, 6, 7};
 const int dir[] = {50, 51, 48, 49};
-const int motionEna[] = {9, 10, 11, 12};
 
 // Is called when a new twist message is published on the given topic
 void twist_callback(const geometry_msgs::Twist& cmd_vel)
@@ -55,17 +54,14 @@ void twist_callback(const geometry_msgs::Twist& cmd_vel)
 // Is currently in PWM mode, just because it's easy to set up, varying
 // the duty cycle will have no effect on the motors, the prescaler will
 void motor_pwm_setup() {
-	// Timer 1 PWM mode 64 prescaler
-	TCCR1A = _BV(COM1A1) | _BV(COM1B1) | _BV(WGM11) | _BV(WGM10);
-	TCCR1B = _BV(CS11);
-	OCR1A = 180;
-	OCR1B = 180;
+	// Timer 1 PWM mode 1024 prescaler -> 440Hz
+        TCCR1A = 0;
+	TCCR1B = 0;
 
-	// Timer 2 PWM mode 64 prescaler
-	TCCR2A = _BV(COM2A1) | _BV(COM2B1) | _BV(WGM21) | _BV(WGM20);
-	TCCR2B = _BV(CS22);
-	OCR2A = 180;
-	OCR2B = 180;
+	TCCR1A = _BV(WGM12);
+	TCCR1B = _BV(CS12) | _BV(CS10);
+
+	OCR1A = 350;
 }
 
 ros::Subscriber <geometry_msgs::Twist> sub("/cmd_vel", twist_callback);
@@ -79,7 +75,6 @@ void setup() {
 	for (int i=0; i<N_MOTORS; i++) {
 		pinMode(ena[i], OUTPUT);   
 		pinMode(dir[i], OUTPUT);
-		pinMode(motionEna[i], OUTPUT);
 		pinMode(otherEnable[i], OUTPUT);
 		
 		digitalWrite(otherEnable[i], LOW);
@@ -97,14 +92,14 @@ void loop() {
 // Kill all motors
 void die() {
 	for (int i=0; i<N_MOTORS; ++i) {
-		digitalWrite(motionEna[i] , HIGH);
+		digitalWrite(ena[i] , HIGH);
 	}
 }
 
 // Set all motors on
 void live() {
 	for (int i=0; i<N_MOTORS; ++i) {
-		digitalWrite(motionEna[i] , LOW);
+		digitalWrite(ena[i] , LOW);
 	}
 }
 
