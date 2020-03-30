@@ -47,16 +47,4 @@ Please look at the issue board if you have any problems.
 - [ ] On-board raspberry pi for wireless control
 - [ ] Implementing SLAM for autonomous navigation [RUNNING] 
 
-## SLAM for autonomous navigation
-> This is the current plan of attack, changes will be made along the way.
-
-#### Odometry
-1. Modify ACR and arduino code so make the ACR step-controllable :heavy_check_mark:
-2. Implement odometry; create package to transform the twist messages created by the teleop_twist_keyboard to tf messages, readable by the `slam_gmapping` package :heavy_check_mark:
-
-#### Mapping
-3. Set up lidar to map the environment :heavy_check_mark:
-4. Implement mapping; create package to send LaserScanner type data from the lidar, using the LeddarSDK libraries
-
-#### SLAM
-4. Connect all the packages; set up `slam_gmapping` using the created packages
+Further info on goals can be found in the 'Projects' page
