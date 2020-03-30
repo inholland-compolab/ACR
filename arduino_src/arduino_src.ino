@@ -10,11 +10,14 @@
 
 #define N_MOTORS 4
 
-ros::NodeHandle  nh;
+ros::NodeHandle nh;
 geometry_msgs::Twist msg;
 
-float move1;
-float move2;
+const int speedFactor = 200;
+
+float x;
+float y;
+float z;
 
 const int ena[] = {46, 47, 44, 45};
 const int otherEnable[] = {4, 5, 6, 7};
@@ -25,43 +28,43 @@ void twist_callback(const geometry_msgs::Twist& cmd_vel)
 {  
 	die();
 
-	move1 = cmd_vel.linear.x;
-	move2 = cmd_vel.angular.z;
-	
-	if (move1 < 0 && move2 == 0) {
-		front();
-	}
-	else if (move1 == 0 && move2 < 0 ) {
-		left();
-	}
-	else if (move1 == 0 && move2 > 0 ) {
-		right();
-	}
-	else if (move1 > 0 && move2 == 0) {
-		back();
-	}
-	else if (move1 < 0 && move2 > 0) {
-		turnleft();
-	}
-	else if (move1 < 0 && move2 < 0) {
-		turnright();
+	x = cmd_vel.linear.x;
+	y = cmd_vel.linear.y;
+	z = cmd_vel.angular.z;
+
+	if (z == 0) {
+		if (x > 0 && y == 0) {
+			front();	
+		} else if (x < 0 && y == 0) {
+			back();	
+		} else if (x == 0 && y > 0) {
+			left();
+		} else if (x == 0 && y < 0) {
+			right();
+		} else {
+			return;
+		}
+		live(x); // Both linear speeds should be the same when using teleop_twist_keyboard
 	} else {
-		return;
+		if(z > 0) {
+			turnright();
+		} else {
+			turnleft();
+		}
+		live(z);
 	}
-	live();
 }
 
 // Is currently in PWM mode, just because it's easy to set up, varying
 // the duty cycle will have no effect on the motors, the prescaler will
 void motor_pwm_setup() {
-	// Timer 1 PWM mode 1024 prescaler -> 440Hz
-        TCCR1A = 0;
-	TCCR1B = 0;
+	pinMode(11, OUTPUT);
+	pinMode(12, OUTPUT);
 
-	TCCR1A = _BV(WGM12);
-	TCCR1B = _BV(CS12) | _BV(CS10);
-
-	OCR1A = 350;
+	TCCR1A = _BV(COM1A0) | _BV(COM1B1) | _BV(WGM11) | _BV(WGM10);
+	TCCR1B = _BV(WGM12) | _BV(CS11) | _BV(CS10);
+	
+	OCR1A = .5 * speedFactor;
 }
 
 ros::Subscriber <geometry_msgs::Twist> sub("/cmd_vel", twist_callback);
@@ -70,6 +73,7 @@ void setup() {
 	// Set up ROS node communication
 	nh.initNode();
 	nh.subscribe(sub);
+	pinMode(13, OUTPUT);
 
 	// Set up pins
 	for (int i=0; i<N_MOTORS; i++) {
@@ -92,15 +96,19 @@ void loop() {
 // Kill all motors
 void die() {
 	for (int i=0; i<N_MOTORS; ++i) {
-		digitalWrite(ena[i] , HIGH);
+		digitalWrite(otherEnable[i] , HIGH);
 	}
+	digitalWrite(13, LOW);
 }
 
 // Set all motors on
-void live() {
+void live(int speed) {
+	OCR1A = speed * speedFactor;
+
 	for (int i=0; i<N_MOTORS; ++i) {
-		digitalWrite(ena[i] , LOW);
+		digitalWrite(otherEnable[i] , LOW);
 	}
+	digitalWrite(13, HIGH);
 }
 
 // The following fucntions set set the stepper controllers
