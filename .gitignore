@@ -2,3 +2,6 @@
 rossystem/build
 rossystem/devel
 rossystem/.catkin_workspace
+arduino_src/build
+arduino_src/.build
+
