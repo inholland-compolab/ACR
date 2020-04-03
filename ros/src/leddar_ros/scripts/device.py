@@ -3,14 +3,17 @@
 '''
 Created on Mar 2, 2018
 
-@author: Zohar Cochavi - Maxime Lemonnie
+@author: Maxime Lemonnier
 
-@file: acr.py
+@file: device.py
 
-@summary: leddar_ros acr node definition
+@summary: leddar_ros device node definition
+
+@copyright: Copyright (c) 2018 LeddarTech Inc. All rights reserved.
 '''
 
 import leddar
+from leddar_utils import clouds
 import rospy
 import math
 import numpy as np
@@ -31,8 +34,7 @@ if __name__ == '__main__':
 
     dev = leddar.Device()
 
-    # User input for device type
-    frame_id = rospy.get_param('~frame_id', 'map')
+    frame_id = rospy.get_param('~frame_id', 'scan')
     param1 = rospy.get_param('~param1')
     device_type = rospy.get_param('~device_type',"not specified")
     param3 = rospy.get_param('~param3', 0)
@@ -41,7 +43,6 @@ if __name__ == '__main__':
     param3 = int(param3)
     param4 = int(param4)
 
-    # Try connecting with device
     dev_type = 0
     if(device_type != "not specified"):
         dev_type = leddar.device_types[device_type]
@@ -58,8 +59,8 @@ if __name__ == '__main__':
     pub_specs = rospy.Publisher('specs', Specs, queue_size=100)
     pub_specs.publish(specs)
     pub_laser = rospy.Publisher('scan_laser', LaserScan, queue_size=100)
-    frame_id = rospy.get_param('~frame_id', 'map')
-
+    frame_id = rospy.get_param('~frame_id', 'scan')
+    
     def echoes_callback(echo):
         echo['data'] = echo['data'][np.bitwise_and(echo['data']['flags'], 0x01).astype(np.bool)] #keep valid echoes only
         indices, flags, distances, amplitudes = [echo['data'][x] for x in ['indices', 'flags', 'distances', 'amplitudes']]
@@ -84,6 +85,7 @@ if __name__ == '__main__':
             laserscan.intensities = amplitudes
 
             pub_laser.publish(laserscan)
+
 
     dev.set_callback_echo(echoes_callback)
     dev.set_data_mask(leddar.data_masks["DM_ECHOES"])
