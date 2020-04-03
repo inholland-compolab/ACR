@@ -1,4 +1,11 @@
 <launch>
+        <include file="$(find leddar_ros)/launch/standard_no_rviz.launch" />
+        
 	<param name="robot_description" textfile="$(find acr_setup)/config/acr.urdf" />
 	<node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" />
+        <node name="odometry" pkg="acr_odometry" type="acr_odometry_node" />
+        <node name="map" pkg="gmapping" type="slam_gmapping" args="scan:=/leddar/scan_laser" />
+
+        <node name="rviz" pkg="rviz" type="rviz" args="-d $(find acr_setup)/config/acr.rviz" />
+
 </launch>
