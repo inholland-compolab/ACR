@@ -1,7 +1,7 @@
 # Build files
-rossystem/build
-rossystem/devel
-rossystem/.catkin_workspace
+ros/build
+ros/devel
+ros/.catkin_workspace
 arduino_src/build
 arduino_src/.build
 
