@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 2.8.3)
-project(leddar_laserscan)
+project(leddar_ros)
 
 ## Compile as C++11, supported in ROS Kinetic and newer
 # add_compile_options(-std=c++11)
@@ -170,7 +170,7 @@ include_directories(
 #   DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
 # )
 install(PROGRAMS
-  src/leddar_laserscan_node.py
+  scripts/device.py
   DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
 )
 ## Mark executables and/or libraries for installation
@@ -206,6 +206,3 @@ install(PROGRAMS
 
 ## Add folders to be run by python nosetests
 # catkin_add_nosetests(test)
-
-catkin_install_python(PROGRAMS src/leddar_laserscan_node.py
-  DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION})

@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <package format="2">
-  <name>leddar_laserscan</name>
+  <name>leddar_ros</name>
   <version>0.1.0</version>
   <description>Expose LeddarTech Sensors to ROS</description>
   <license>Copyright (c) 2018 LeddarTech Inc. All rights reserved.</license>
@@ -8,7 +8,7 @@
   <url type="website">https://github.com/leddartech/leddar_ros</url>
 
 
-  <!--The *depend tags are used to specify dependencies -->
+  <!-- The *depend tags are used to specify dependencies -->
   <!-- Dependencies can be catkin packages or system dependencies -->
   <!-- Examples: -->
   <!-- Use depend as a shortcut for packages that are both build and exec dependencies -->

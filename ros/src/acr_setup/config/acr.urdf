@@ -1,10 +1,11 @@
 <?xml version="1.0"?>
+
 <robot name="ACR">
   
   <link name="base_link">
     <visual>
       <geometry>
-        <box size="1 .7 .2"/>
+          <mesh filename="package://acr_setup/config/ACR.stl" />
       </geometry>
     </visual>
   </link>
