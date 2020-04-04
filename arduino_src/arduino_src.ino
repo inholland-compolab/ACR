@@ -9,11 +9,11 @@
 #include <geometry_msgs/Twist.h> 
 
 #define N_MOTORS 4
+#define linear_factor 25
+#define angular_factor 50
 
 ros::NodeHandle nh;
 geometry_msgs::Twist msg;
-
-const int speedFactor = 200;
 
 float x;
 float y;
@@ -43,15 +43,19 @@ void twist_callback(const geometry_msgs::Twist& cmd_vel)
 			right();
 		} else {
 			return;
-		}
-		live(x); // Both linear speeds should be the same when using teleop_twist_keyboard
+	        }
+                if (x == 0) {
+                    live(linear_factor / abs(y)); 
+                } else {
+                    live(linear_factor / abs(x)); 
+                }
 	} else {
 		if(z > 0) {
 			turnright();
 		} else {
 			turnleft();
 		}
-		live(z);
+		live(angular_factor / abs(z));
 	}
 }
 
@@ -62,9 +66,9 @@ void motor_pwm_setup() {
 	pinMode(12, OUTPUT);
 
 	TCCR1A = _BV(COM1A0) | _BV(COM1B1) | _BV(WGM11) | _BV(WGM10);
-	TCCR1B = _BV(WGM12) | _BV(CS11) | _BV(CS10);
+	TCCR1B = _BV(WGM13) | _BV(WGM12) | _BV(CS11);
 	
-	OCR1A = .5 * speedFactor;
+	OCR1A = 500;
 }
 
 ros::Subscriber <geometry_msgs::Twist> sub("/cmd_vel", twist_callback);
@@ -102,8 +106,8 @@ void die() {
 }
 
 // Set all motors on
-void live(int speed) {
-	OCR1A = speed * speedFactor;
+void live(float speed) {
+	OCR1A = speed;
 
 	for (int i=0; i<N_MOTORS; ++i) {
 		digitalWrite(otherEnable[i] , LOW);
