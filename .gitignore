@@ -2,6 +2,8 @@
 ros/build
 ros/devel
 ros/.catkin_workspace
+ros/.catkin_tools
+ros/.clangd
 ros/compile_commands.json
 ros/logs
 
