@@ -1,8 +1,0 @@
-prefix=/home/zohar/Documents/Work/ACR/rossystem/devel
-
-Name: twist_to_tf
-Description: Description of twist_to_tf
-Version: 0.0.0
-Cflags: 
-Libs: -L${prefix}/lib 
-Requires: 
