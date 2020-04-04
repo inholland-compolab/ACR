@@ -2,6 +2,9 @@
 ros/build
 ros/devel
 ros/.catkin_workspace
+ros/compile_commands.json
+ros/logs
+
 arduino_src/build
 arduino_src/.build
 
