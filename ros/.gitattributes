@@ -1,1 +1,0 @@
-src/acr_setup/config/ACR.stl filter=lfs diff=lfs merge=lfs -text
