@@ -1,5 +1,5 @@
 <launch>
-        <!-- include file="$(find leddar_ros)/launch/standard_no_rviz.launch" -->
+        <include file="$(find leddar_ros)/launch/standard_no_rviz.launch" />
         
 	<param name="robot_description" textfile="$(find acr_setup)/config/acr.urdf" />
 	<node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" />
