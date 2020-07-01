@@ -66,7 +66,7 @@ void motor_pwm_setup() {
 	pinMode(12, OUTPUT);
 
 	TCCR1A = _BV(COM1A0) | _BV(COM1B1) | _BV(WGM11) | _BV(WGM10);
-	TCCR1B = _BV(WGM13) | _BV(WGM12) | _BV(CS11);
+	TCCR1B = _BV(WGM13) | _BV(WGM12) | _BV(CS12);
 	
 	OCR1A = 500;
 }
