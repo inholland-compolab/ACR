@@ -7,7 +7,7 @@
 
 OdometryNode::OdometryNode():
 	odom_publisher_(nh_.advertise<nav_msgs::Odometry>("odometry", 100)),
-	twist_sub_(nh_.subscribe("cmd_vel", 100, &OdometryNode::twistCallback, this)) 
+	twist_sub_(nh_.subscribe("/cmd_vel", 100, &OdometryNode::twistCallback, this)) 
 {
 	this->x = 0.0;
 	this->y = 0.0;

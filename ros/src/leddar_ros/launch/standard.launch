@@ -1,6 +1,6 @@
 <launch>
   <!-- Connection info, see python leddar.Device.connect for more info -->
-  <arg name="param1" default="/dev/ttyACM0" />
+  <arg name="param1" default="/dev/ttyACM1" />
   <!-- [All] value returned by GetDeviceList['name'],
     [Serial] serial port com,
     [USB] serial number, 
@@ -14,7 +14,7 @@
   <!-- (optional) [Serial] modbus address (default 1), 
     [CANBus komodo] Tx (default 0x750) ,
     [Ethernet] port (default 48630) -->
-  <arg name="param4" default="0"/>
+  <arg name="param4" default="115200"/>
   <!-- param4: (optional) [Serial] baudrate (default 115200), 
     [CANBus komodo] Rx (default 0x740),
     [Ethernet] Communication timeout -->

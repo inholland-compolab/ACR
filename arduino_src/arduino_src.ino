@@ -9,7 +9,7 @@
 #include <geometry_msgs/Twist.h> 
 
 #define N_MOTORS 4
-#define linear_factor 25
+#define linear_factor 10
 #define angular_factor 50
 
 ros::NodeHandle nh;

@@ -1,6 +1,6 @@
 <launch>
   <!-- Connection info, see python leddar.Device.connect for more info -->
-  <arg name="param1" default="/dev/ttyACM0" />
+  <arg name="param1" default="$(arg lidar_port)" />
   <!-- [All] value returned by GetDeviceList['name'],
     [Serial] serial port com,
     [USB] serial number, 

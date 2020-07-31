@@ -1,12 +1,15 @@
 <launch>
-        <include file="$(find leddar_ros)/launch/standard_no_rviz.launch" />
-        
+        <arg name="arduino_port" default="/dev/ttyACM0" />
+        <arg name="lidar_port" default="/dev/ttyACM1" />
+
+        <include file="$(find leddar_ros)/launch/standard_no_rviz.launch" pass_all_args="true"/>
+
 	<param name="robot_description" textfile="$(find acr_setup)/config/acr.urdf" />
+
 	<node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" />
         <node name="odometry" pkg="acr_odometry" type="acr_odometry_node" />
         <node name="slam_node" pkg="gmapping" type="slam_gmapping" args="scan:=/leddar/scan_laser" />
-        <node name="serial_node" pkg="rosserial_python" type="serial_node.py" args="/dev/ttyACM0" />
+        <node name="serial_node" pkg="rosserial_python" type="serial_node.py" args="$(arg arduino_port)" />
 
         <node name="rviz" pkg="rviz" type="rviz" args="-d $(find acr_setup)/config/acr.rviz" />
-
 </launch>
