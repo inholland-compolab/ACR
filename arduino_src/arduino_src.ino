@@ -9,8 +9,10 @@
 #include <geometry_msgs/Twist.h> 
 
 #define N_MOTORS 4
-#define linear_factor 10
-#define angular_factor 50
+
+// Use for calibration of odometry (higher is slower)
+#define linear_factor 2.9
+#define angular_factor 9.7
 
 ros::NodeHandle nh;
 geometry_msgs::Twist msg;
@@ -60,7 +62,8 @@ void twist_callback(const geometry_msgs::Twist& cmd_vel)
 }
 
 // Is currently in PWM mode, just because it's easy to set up, varying
-// the duty cycle will have no effect on the motors, the prescaler will
+// the duty cycle will have no effect on the motors, the prescaler will...
+// For details on these terms, refer to the arduino ATMEGA-2560 reference manual chapter on Timers
 void motor_pwm_setup() {
 	pinMode(11, OUTPUT);
 	pinMode(12, OUTPUT);

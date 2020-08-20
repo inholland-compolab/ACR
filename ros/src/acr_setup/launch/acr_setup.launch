@@ -1,6 +1,6 @@
 <launch>
         <arg name="arduino_port" default="/dev/ttyACM0" />
-        <arg name="lidar_port" default="/dev/ttyACM1" />
+        <arg name="lidar_port" default="/dev/NOT_NOW" />
 
         <include file="$(find leddar_ros)/launch/standard_no_rviz.launch" pass_all_args="true"/>
 
