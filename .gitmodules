@@ -1,3 +1,9 @@
 [submodule "acr_control"]
 	path = acr_control
 	url = ./acr_control
+[submodule "ros/src/-b"]
+	path = ros/src/-b
+	url = https://github.com/ros-drivers/rosserial.git
+[submodule "ros/src/rosserial"]
+	path = ros/src/rosserial
+	url = https://github.com/ros-drivers/rosserial.git
