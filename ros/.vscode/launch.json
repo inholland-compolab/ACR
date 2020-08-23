@@ -1,0 +1,11 @@
+{
+    "configurations": [
+    {
+        "name": "ROS: Launch",
+        "type": "ros",
+        "request": "launch",
+        // "target": "~/Documents/Work/LAB/ACR/ros/src/acr_setup/launch/acr.launch"
+        "target": "/home/zohar/Documents/Work/LAB/ACR/ros/src/acr_setup/launch/acr_setup.launch"
+    }
+    ]
+}
