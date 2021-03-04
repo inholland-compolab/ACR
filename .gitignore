@@ -10,3 +10,4 @@ ros/logs
 arduino_src/build
 arduino_src/.build
 
+.vscode/

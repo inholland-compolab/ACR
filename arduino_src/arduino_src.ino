@@ -25,6 +25,8 @@ const int ena[] = {46, 47, 44, 45};
 const int otherEnable[] = {4, 5, 6, 7};
 const int dir[] = {50, 51, 48, 49};
 
+bool toggle = true;
+
 // Is called when a new twist message is published on the given topic
 void twist_callback(const geometry_msgs::Twist& cmd_vel)
 {  

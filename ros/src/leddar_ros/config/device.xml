@@ -20,6 +20,10 @@
     [Ethernet] Communication timeout -->
 
   <arg name="frame_id" default="base_scan" />
+  <arg name="parent_frame_id" default="map" />
+
+  <arg name="position" default="0 0 0" />
+  <arg name="rotation" default="0 0 0" />
 
   <node pkg="leddar_ros" type="device.py" name="sensor">
     <param name="device_type" value="$(arg device_type)" />
@@ -28,5 +32,8 @@
     <param name="param3" value="$(arg param3)" />
     <param name="param4" value="$(arg param4)" />
   </node>
+
+  <node pkg="tf" type="static_transform_publisher" name="leddar_1_to_map"
+      args="$(arg position) $(arg rotation) $(arg parent_frame_id) $(arg frame_id) 10" />
 
 </launch>

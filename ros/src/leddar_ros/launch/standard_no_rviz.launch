@@ -19,6 +19,6 @@
     [CANBus komodo] Rx (default 0x740),
     [Ethernet] Communication timeout -->
   
-  <include file="$(find leddar_ros)/config/device.xml" ns="leddar" pass_all_args="true">
+  <include file="$(find leddar_ros)/config/acr.xml" ns="LeddarTech_1" pass_all_args="true">
   </include>
 </launch>
