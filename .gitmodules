@@ -1,3 +1,6 @@
 [submodule "acr_control"]
 	path = acr_control
 	url = ./acr_control
+[submodule "arduino_src/libraries/rosserial_arduino_lib"]
+	path = arduino_src/libraries/rosserial_arduino_lib
+	url = git@github.com:frankjoshua/rosserial_arduino_lib.git

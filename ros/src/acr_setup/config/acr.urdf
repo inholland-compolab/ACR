@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+
+<robot name="ACR">
+  
+  <link name="base_link">
+    <visual>
+      <geometry>
+          <mesh filename="package://acr_setup/config/ACR.stl" />
+      </geometry>
+    </visual>
+  </link>
+
+    <link name="base_scan">
+      <visual>
+        <geometry>
+          <box size=".1 .1 .1"/>
+        </geometry>
+      </visual>
+    </link>
+
+   <joint name="my_joint" type="fixed">
+	   <origin xyz=".45 0 .15" rpy="180 0 0 "/>
+    <parent link="base_link"/>
+    <child link="base_scan"/>
+  </joint>
+
+</robot>

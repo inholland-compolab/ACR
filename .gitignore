@@ -1,2 +1,14 @@
 # Build files
-rossystem/build
+ros/build
+ros/devel
+ros/.catkin_workspace
+ros/.catkin_tools
+ros/.clangd
+ros/compile_commands.json
+ros/logs
+
+arduino_src/build
+arduino_src/.build
+
+# Editor specific
+.vscode/
