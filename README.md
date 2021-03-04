@@ -34,15 +34,18 @@ I highly recommend doing it in a docker container, especially if you don't have 
 
 #### Running
 
-1. Run `run.sh` as Admin or using the `sudo` command in Linux. It will then say: I need more parameters! To which you respond with the appropriate parameters. They're the virtual device files corresponding to the lidar, and arduino. 
-> Windows: COM[0-9]
-> Linux: /dev/ACM[0-9] or /dev/USB[0-9]
+1. Run `run.sh` as Admin or using the `sudo` command in Linux. It will then say: I need more parameters! To which you respond with the appropriate parameters. They're the virtual device files corresponding to the lidar, and arduino. Often one of the following:
+```
+ - Windows: COM[0-9]
+
+ - Linux: /dev/ACM[0-9] or /dev/USB[0-9]
+```
 
 2. Control the robot using the `i`, `j`, `k`, `l`, `m`, `,` and `.` keys. Keep the terminal with teleop\_twist focused, as it will only listen to the keyboard when it is focused
 
 3. That was it. That's why you should use docker.
 
->  ! Make sure the robot is not in full speed !
+>  Make sure the robot is not in full speed !
 
 ### On a (virtual) machine with Ubuntu 18.04:
 
@@ -58,15 +61,15 @@ I highly recommend doing it in a docker container, especially if you don't have 
 
 #### Running
 
-1. Open a terminal and enter `roscore`
+1. You can simply launch the project using `roslaunch acr_setup acr_setup.launch`. If you get any errors saying it can't connect on the given usb ports, you should change the parameters to match the ones on you machine. These are often the following:
 
-2. Plug in the arduino. Open a terminal and enter `rosrun rosserial_python serial_node.py /dev/ttyACM0`. The last argument refers to the USB port the arduino is connected to. Run `ls /dev/tty*` in the terminal to see all available devices (it should be something like `ttyUSB0` or `ttyACM0`. If you see an error after running the `rosserial` command, it's probably because you got the wrong port)
+```
+ - Windows: COM[0-9]
 
-3. Open a terminal and enter `rosrun teleop_twist_keyboard teleop_twist_keyboard.py`
+ - Linux: /dev/ACM[0-9] or /dev/USB[0-9]
+```
 
-4. Control the robot using the `i`, `j`, `k`, `l`, `m`, `,` and `.` keys. Keep the terminal with teleop\_twist focused, as it will only listen to the keyboard when it is focused
-
->  ! Make sure the robot is not in full speed !
+>  Make sure the robot is not in full speed !
 
 ### Calibrating the Robot
 
@@ -75,6 +78,7 @@ There is no dedicated odometry device (like a potmeter to check the angle of the
 ## Notes
 
 > I've run into issues with the leddar sdk a while ago (early 2020), and have seen that they since then have updated their repo and guides. You might want to check out a new version of their sdk.
+
 > The project is build on ROS Melodic. The reason I've not migrated to Noetic is that the rosserial\_python package hasn't been updated accordingly. You might want to keep an eye out for this.
 
 ## Ideas
